@@ -3,65 +3,11 @@ from PyPDF2 import PdfReader
 import tkinter as tk
 from tkinter import filedialog
 
-# Define dictionary of job titles
-job_titles = {
-  "jobs": [
-    "Software Developer",
-    "Data Scientist",
-    "Systems Administrator",
-    "Cybersecurity Analyst",
-    "Web Developer",
-    "Database Administrator",
-    "Artificial Intelligence Engineer",
-    "Cloud Architect",
-    "Network Administrator",
-    "Full Stack Developer",
-    "UI/UX Designer",
-    "DevOps Engineer",
-    "IT Project Manager",
-    "Machine Learning Engineer",
-    "Front-end Developer",
-    "Back-end Developer",
-    "Mobile Application Developer",
-    "Business Intelligence Analyst",
-    "Game Developer",
-    "Quality Assurance Engineer"
-  ]
-}
-
 # Create the main window
 window = tk.Tk()
 window.title("Location Menu")
 window.geometry("300x200")
 window.configure(bg="black")
-
-# Define a function to get the user's location and resume
-def get_location_and_resume():
-    location = location_entry.get()
-    resume_path = resume_path_label.cget("text")
-
-    # Open the PDF file in read-binary mode
-    with open(resume_path, 'rb') as pdf_file:
-        # Create a PdfReader object to read the PDF
-        pdf_reader = PdfReader(pdf_file)
-
-        # Extract text from each page of the PDF and store in a list
-        text_pages = []
-        for page_num in range(len(pdf_reader.pages)):
-            text_pages.append(pdf_reader.pages[page_num].extract_text())
-
-        # Loop through each job title in the dictionary and check for matches in the extracted text
-        for job_title in job_titles["jobs"]:
-            for text in text_pages:
-                if job_title.lower() in text.lower():
-                    print(f"Matching keyword(s) for {job_title}: {job_title}")
-
-    # Clear the input fields
-    location_entry.delete(0, tk.END)
-    resume_path_label.config(text="")
-
-    # Show a message
-    message_label.config(text="Information submitted successfully", fg="green")
 
 # Configure the font and colors
 font = ("Helvetica", 14)
@@ -91,9 +37,51 @@ def browse_resume():
 resume_button = tk.Button(window, text="Browse", font=font, bg=button_color, fg="white", command=browse_resume)
 resume_button.pack(pady=5)
 
+# Define a function to get the user's location and resume
+def get_location_and_resume():
+    location = location_entry.get()
+    resume_path = resume_path_label.cget("text")
+
+    # Open the PDF file in read-binary mode
+    with open(resume_path, 'rb') as pdf_file:
+        # Create a PdfReader object to read the PDF
+        pdf_reader = PdfReader(pdf_file)
+
+        # Extract text from each page of the PDF and store in a list
+        text_pages = []
+        for page_num in range(len(pdf_reader.pages)):
+            text_pages.append(pdf_reader.pages[page_num].extract_text())
+
+        # Load the job titles from a JSON file
+        with open('jobs.json', 'r') as f:
+            job_titles = json.load(f)
+
+        # Loop through each job title in the list and check for matches in the extracted text
+        matched_jobs = []
+        for job_title in job_titles["jobs"]:
+            for text in text_pages:
+                if job_title.lower() in text.lower():
+                    matched_jobs.append(job_title)
+
+        if matched_jobs:
+            result_label.config(text="Matching jobs:\n" + "\n".join(matched_jobs))
+        else:
+            result_label.config(text="No matching jobs found.")
+
+    # Clear the input fields
+    location_entry.delete(0, tk.END)
+    resume_path_label.config(text="")
+
+    # Show a message
+    message_label.config(text="Information submitted successfully", fg="green")
+
 # Create a button to submit the user's location and resume
 submit_button = tk.Button(window, text="Submit", font=font, bg=button_color, fg="white", command=get_location_and_resume)
 submit_button.pack(pady=10)
+
+# Create a label for the result
+result_label = tk.Label(window, text="", font=font, fg=label_color, bg="black")
+result_label.pack(pady=10)
 
 # Create a label for messages
 message_label = tk.Label(window, font=font, fg="red", bg="black")

@@ -4,12 +4,14 @@ import tkinter as tk
 from tkinter import filedialog
 import urllib.parse
 import webbrowser
-from win32api import GetSystemMetrics
 
 # Create the main window
 window = tk.Tk()
 window.title("Location Menu")
-window.geometry("%dx%d" % (GetSystemMetrics(0), GetSystemMetrics(1)))
+window_width = window.winfo_screenwidth()
+window_height = window.winfo_screenheight()
+window.geometry("%dx%d+0+0" % (window_width, window_height))
+
 window.configure(bg="black")
 
 # Configure the font and colors

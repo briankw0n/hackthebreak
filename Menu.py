@@ -1,11 +1,19 @@
 import tkinter as tk
 from tkinter import filedialog
+from PIL import Image, ImageTk
 
 # Create the main window
 window = tk.Tk()
 window.title("Location Menu")
-window.geometry("300x200")
-window.configure(bg="black")
+window.geometry("1000x500")
+
+# Load the GIF image and create a PhotoImage object
+gif_image = Image.open("./image/black-drip-on-white-background-hp2q188n7cnjeqiz.gif")
+background_image = ImageTk.PhotoImage(gif_image)
+
+# Create a label to hold the background image
+background_label = tk.Label(window, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 # Define a function to get the user's location and resume
 def get_location_and_resume():

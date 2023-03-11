@@ -6,7 +6,7 @@ from tkinter import filedialog
 # Create the main window
 window = tk.Tk()
 window.title("Location Menu")
-window.geometry("300x200")
+window.geometry("1000x500")
 window.configure(bg="black")
 
 # Configure the font and colors

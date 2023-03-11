@@ -1,4 +1,4 @@
-# hackthebreak
+# Hack the Break
 
 Team Members:
 1. Ravdeep Aulakh

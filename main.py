@@ -2,6 +2,8 @@ import json
 from PyPDF2 import PdfReader
 import tkinter as tk
 from tkinter import filedialog
+import urllib.parse
+import webbrowser
 
 # Create the main window
 window = tk.Tk()
@@ -14,33 +16,15 @@ font = ("Helvetica", 14)
 label_color = "white"
 button_color = "#800080"
 
-# Create a label for the title text
-title_label = tk.Label(window, text="Hack the Job", font=("Helvetica", 24), fg="white", bg="black", pady=10)
-title_label.pack()
-
-# Create a label and entry field for the user's location
-location_label = tk.Label(window, text="Enter your location:", font=font, fg=label_color, bg="black")
-location_label.pack(pady=10)
-location_entry = tk.Entry(window, font=font)
-location_entry.pack(padx=10, pady=5)
-
-# Create a label and button for the user's resume
-resume_label = tk.Label(window, text="Upload your resume (PDF only):", font=font, fg=label_color, bg="black")
-resume_label.pack(pady=10)
-resume_path_label = tk.Label(window, font=font, fg=label_color, bg="black")
-resume_path_label.pack(padx=10, pady=5)
-
-# Create a button to upload the user's resume
-def browse_resume():
-    resume_path = filedialog.askopenfilename(filetypes=[("PDF files", "*.pdf")])
-    resume_path_label.config(text=resume_path)
-resume_button = tk.Button(window, text="Browse", font=font, bg=button_color, fg="white", command=browse_resume)
-resume_button.pack(pady=5)
-
 # Define a function to get the user's location and resume
 def get_location_and_resume():
     location = location_entry.get()
     resume_path = resume_path_label.cget("text")
+
+    # Check if a resume path has been provided
+    if resume_path == "":
+        message_label.config(text="Please upload a resume before submitting", fg="red")
+        return
 
     # Open the PDF file in read-binary mode
     with open(resume_path, 'rb') as pdf_file:
@@ -64,7 +48,14 @@ def get_location_and_resume():
                     matched_jobs.append(job_title)
 
         if matched_jobs:
-            result_label.config(text="Matching jobs:\n" + "\n".join(matched_jobs))
+            # Generate the search URL for Indeed.com
+            search_url = "https://www.indeed.com/jobs?q=" + urllib.parse.quote_plus(" OR ".join(matched_jobs)) + "&l=" + urllib.parse.quote_plus(location)
+
+            # Display the matching jobs and the search URL as a clickable link
+            result_label.config(text="Matching jobs:\n" + "\n".join(matched_jobs) + "\n\nSearch on Indeed.com:")
+            link = tk.Label(window, text=search_url, fg="blue", cursor="hand2")
+            link.pack()
+            link.bind("<Button-1>", lambda event: webbrowser.open(search_url))
         else:
             result_label.config(text="No matching jobs found.")
 
@@ -74,6 +65,29 @@ def get_location_and_resume():
 
     # Show a message
     message_label.config(text="Information submitted successfully", fg="green")
+
+# Create a label for the title text
+title_label = tk.Label(window, text="Hack the Job", font=("Helvetica", 24), fg="white", bg="black", pady=10)
+title_label.pack()
+
+# Create a label and entry field for the user's location
+location_label = tk.Label(window, text="Enter your location:", font=font, fg=label_color, bg="black")
+location_label.pack(pady=10)
+location_entry = tk.Entry(window, font=font)
+location_entry.pack(padx=10, pady=5)
+
+# Create a label and button for the user's resume
+resume_label = tk.Label(window, text="Upload your resume (PDF only):", font=font, fg=label_color, bg="black")
+resume_label.pack(pady=10)
+resume_path_label = tk.Label(window, font=font, fg=label_color, bg="black")
+resume_path_label.pack(padx=10, pady=5)
+
+# Create a button to upload the user's resume
+def browse_resume():
+    resume_path = filedialog.askopenfilename(filetypes=[("PDF files", "*.pdf")])
+    resume_path_label.config(text=resume_path)
+resume_button = tk.Button(window, text="Browse", font=font, bg=button_color, fg="white", command=browse_resume)
+resume_button.pack(pady=5)
 
 # Create a button to submit the user's location and resume
 submit_button = tk.Button(window, text="Submit", font=font, bg=button_color, fg="white", command=get_location_and_resume)

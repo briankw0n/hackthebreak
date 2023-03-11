@@ -2,28 +2,30 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-# Define the categories and related words
-categories = {
-    'Teamwork': ['teamwork', 'collaboration', 'cooperation', 'communication', 'coordination'],
-    'Time Management': ['time management', 'prioritization', 'organization', 'scheduling', 'efficiency'],
-    'Problem Solving': ['problem solving', 'troubleshooting', 'critical thinking', 'analytical skills', 'innovation']
-}
+# Define the filename for the categories and related words
+filename = 'categories.txt'
+
+# Read the categories and related words from the file
+categories = {}
+with open(filename, 'r') as f:
+    for line in f:
+        category, *words = line.strip().split(',')
+        categories[category] = [word.strip() for word in words]
 
 # Get the website URL from user input
 url = input("Enter the website URL: ")
 
 # Define the headers
 headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299",
-    "Accept-Language": "en-US,en;q=0.9",
-    "Accept-Encoding": "gzip, deflate, br",
-    "Connection": "keep-alive",
-    "Upgrade-Insecure-Requests": "1"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36",
+    "Accept-Language": "en-US,en;q=0.5",
+    "Referer": url,
+    "Connection": "keep-alive"
 }
 
 # Fetch the website content
 res = requests.get(url, headers=headers)
-html_page = res.content.decode('ISO-8859-1')
+html_page = res.content
 
 # Parse the HTML content
 soup = BeautifulSoup(html_page, 'html.parser')

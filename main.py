@@ -4,11 +4,12 @@ import tkinter as tk
 from tkinter import filedialog
 import urllib.parse
 import webbrowser
+from win32api import GetSystemMetrics
 
 # Create the main window
 window = tk.Tk()
 window.title("Location Menu")
-window.geometry("1000x500")
+window.geometry("%dx%d" % (GetSystemMetrics(0), GetSystemMetrics(1)))
 window.configure(bg="black")
 
 # Configure the font and colors
@@ -78,6 +79,11 @@ location_label = tk.Label(window, text="Enter your location:", font=font, fg=lab
 location_label.pack(pady=10)
 location_entry = tk.Entry(window, font=font)
 location_entry.pack(padx=10, pady=5)
+
+job_label = tk.Label(window, text="Enter your desired job:", font=font, fg=label_color, bg="black")
+job_label.pack(pady=10)
+job_entry = tk.Entry(window, font=font)
+job_entry.pack(padx=10, pady=5)
 
 # Create a label and button for the user's resume
 resume_label = tk.Label(window, text="Upload your resume (PDF only):", font=font, fg=label_color, bg="black")

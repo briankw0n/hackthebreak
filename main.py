@@ -47,6 +47,9 @@ def get_location_and_resume():
                 if job_title.lower() in text.lower():
                     matched_jobs.append(job_title)
 
+        # Remove duplicates from matched_jobs list
+        matched_jobs = list(set(matched_jobs))
+
         if matched_jobs:
             # Generate the search URL for Indeed.com
             search_url = "https://www.indeed.com/jobs?q=" + urllib.parse.quote_plus(" OR ".join(matched_jobs)) + "&l=" + urllib.parse.quote_plus(location)

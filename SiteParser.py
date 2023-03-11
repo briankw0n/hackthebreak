@@ -1,16 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+import json
 
-# Define the filename for the categories and related words
-filename = 'categories.txt'
-
-# Read the categories and related words from the file
-categories = {}
-with open(filename, 'r') as f:
-    for line in f:
-        category, *words = line.strip().split(',')
-        categories[category] = [word.strip() for word in words]
+# Read the categories from a JSON file
+with open('categories.json', 'r') as f:
+    categories = json.load(f)
 
 # Get the website URL from user input
 url = input("Enter the website URL: ")

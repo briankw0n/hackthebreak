@@ -55,22 +55,35 @@ def get_location_and_resume():
 
         if matched_jobs:
             # Generate the search URL for Indeed.com
-            search_url = "https://www.indeed.com/jobs?q=" + urllib.parse.quote_plus(" OR ".join(matched_jobs)) + "&l=" + urllib.parse.quote_plus(location)
+            search_url = "https://www.indeed.com/jobs?q=" + urllib.parse.quote_plus(
+                " OR ".join(matched_jobs)) + "&l=" + urllib.parse.quote_plus(location)
 
             # Display the matching jobs and the search URL as a clickable link
             result_label.config(text="Matching jobs:\n" + "\n".join(matched_jobs) + "\n\nSearch on Indeed.com:")
+
+            # Destroy any previous link widget
+            for widget in window.winfo_children():
+                if isinstance(widget, tk.Label) and widget.cget("fg") == "blue":
+                    widget.destroy()
+
             link = tk.Label(window, text=search_url, fg="blue", cursor="hand2")
             link.pack()
             link.bind("<Button-1>", lambda event: webbrowser.open(search_url))
         else:
+
             result_label.config(text="No matching jobs found.")
+            # Destroy any previous link widget
+            for widget in window.winfo_children():
+                if isinstance(widget, tk.Label) and widget.cget("fg") == "blue":
+                    widget.destroy()
 
-    # Clear the input fields
-    location_entry.delete(0, tk.END)
-    resume_path_label.config(text="")
+        # Clear the input fields
+        location_entry.delete(0, tk.END)
+        resume_path_label.config(text="")
 
-    # Show a message
-    message_label.config(text="Information submitted successfully", fg="green")
+        # Show a message
+        message_label.config(text="Information submitted successfully", fg="green")
+
 
 # Create a label for the title text
 title_label = tk.Label(window, text="Hack the Job", font=("Helvetica", 24), fg="white", bg="black", pady=10)

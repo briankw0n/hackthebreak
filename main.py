@@ -120,7 +120,7 @@ def get_location_and_resume():
 
 
 # Create a label for the title text
-title_label = tk.Label(window, text="Hack the Job", font=("Helvetica", 24), fg="#5D3FD3", bg="#90A8EE", pady=10)
+title_label = tk.Label(window, text="Hack the Job", font=("Helvetica", 35), fg="#5D3FD3", bg="#90A8EE", pady=10)
 title_label.pack()
 
 # Create a label and entry field for the user's location
@@ -128,11 +128,6 @@ location_label = tk.Label(window, text="Enter your location:", font=font, fg=lab
 location_label.pack(pady=10)
 location_entry = tk.Entry(window, font=font)
 location_entry.pack(padx=10, pady=5)
-
-job_label = tk.Label(window, text="Enter your desired job:", font=font, fg=label_color, bg="#90A8EE")
-job_label.pack(pady=10)
-job_entry = tk.Entry(window, font=font)
-job_entry.pack(padx=10, pady=5)
 
 # Create a label and button for the user's resume
 resume_label = tk.Label(window, text="Upload your resume (PDF only):", font=font, fg=label_color, bg="#90A8EE")
@@ -145,11 +140,13 @@ def browse_resume():
     resume_path = filedialog.askopenfilename(filetypes=[("PDF files", "*.pdf")])
     resume_path_label.config(text=resume_path)
 resume_button = tk.Button(window, text="Browse", font=font, bg=button_color, fg="white", command=browse_resume)
-resume_button.pack(pady=5)
+resume_button.pack()
+resume_button.place(x=700, y=271, anchor="center")
 
 # Create a button to submit the user's location and resume
 submit_button = tk.Button(window, text="Submit", font=font, bg=button_color, fg="white", command=get_location_and_resume)
-submit_button.pack(pady=10)
+submit_button.pack()
+submit_button.place(x=820, y=271, anchor="center")
 
 # Create a label for the result
 result_label = tk.Label(window, text="", font=font, fg=label_color, bg="#90A8EE")

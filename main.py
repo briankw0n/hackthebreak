@@ -155,12 +155,12 @@ def browse_resume():
     resume_path_label.config(text=resume_path)
 resume_button = tk.Button(window, text="Browse", font=font, bg=button_color, fg="white", command=browse_resume)
 resume_button.pack()
-resume_button.place(x=700, y=271, anchor="center")
+resume_button.place(relx=0.45, rely=0.331, anchor="center")
 
 # Create a button to submit the user's location and resume
 submit_button = tk.Button(window, text="Submit", font=font, bg=button_color, fg="white", command=get_location_and_resume)
 submit_button.pack()
-submit_button.place(x=820, y=271, anchor="center")
+submit_button.place(relx=0.55, rely=0.331, anchor="center")
 
 # Create a label for the result
 result_label = tk.Label(window, text="", font=font, fg=label_color, bg="#90A8EE")

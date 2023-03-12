@@ -8,6 +8,7 @@ from tkinter import *
 from PIL import Image, ImageTk
 import random
 import whyyoudothisjayden
+import FederalScrape
 import ParseFunction
 
 # Create the main window
@@ -86,14 +87,24 @@ def get_location_and_resume():
 
             # Display the matching jobs and the search URL as a clickable link
             result_label.config(text="Matching jobs for {}".format(", ".join(matched_jobs)) + ":\n")
-            job_list = whyyoudothisjayden.get_job_description(search_url)
-            job_details = ""
-            for job in job_list:
-                title = job['title']
+            # job_list = whyyoudothisjayden.get_job_description(search_url)
+            # job_details = ""
+            # for job in job_list:
+            #     title = job['title']
+            #     company = job['company']
+            #     link = job['link']
+            #     job_details += f"Title: {title}\nCompany: {company}\nLink: {link}\n\n"
+            # result_label.config(text=result_label.cget("text") + "\n" + job_details)
+            job_details2 = ""
+            job_list2 = FederalScrape.get_jobDescription(search_url)
+            for job in job_list2:
+                distance = job['distance']
                 company = job['company']
-                link = job['link']
-                job_details += f"Title: {title}\nCompany: {company}\nLink: {link}\n\n"
-            result_label.config(text=result_label.cget("text") + "\n" + job_details)
+                postdate = job['postdate']
+                location = job['location']
+                postURL = job['postURL']
+                job_details2 += f"Distance: {distance}\nCompany: {company}\nPost Date: {postdate}\nLocation: {location}\nLink: {postURL}\n"
+            result_label.config(text=result_label.cget("text") + "\n" + job_details2)
 
             # Destroy any previous link widget
             for widget in window.winfo_children():

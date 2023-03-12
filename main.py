@@ -114,6 +114,7 @@ def get_location_and_resume():
             #link = tk.Label(window, text=search_url, fg="blue", cursor="hand2")
             #link.pack()
             #link.bind("<Button-1>", lambda event: webbrowser.open(search_url))
+            #comment
         else:
 
             result_label.config(text="No matching jobs found.")

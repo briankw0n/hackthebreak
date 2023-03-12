@@ -18,7 +18,7 @@ window.geometry("%dx%d+0+0" % (window_width, window_height))
 window.configure(bg="#90A8EE")
 
 # Load the image
-img = Image.open("./image/two.png")
+img = Image.open("image/two.png")
 img = img.resize((100, 100), Image.ANTIALIAS)  # resize the image if needed
 img_tk = ImageTk.PhotoImage(img)
 

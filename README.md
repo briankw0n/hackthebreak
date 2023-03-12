@@ -1,6 +1,4 @@
-# Hack the Break
-
-<h1>Hack the Job</h1>
+# Hack the Job
 
 Team Members:
 1. Ravdeep Aulakh

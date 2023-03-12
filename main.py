@@ -7,6 +7,8 @@ import webbrowser
 from tkinter import *
 from PIL import Image, ImageTk
 import random
+import whyyoudothisjayden
+import ParseFunction
 
 # Create the main window
 window = tk.Tk()
@@ -24,8 +26,6 @@ raindrop_canvas.configure(highlightthickness=0)
 raindrop_canvas.configure(bg="#90A8EE")
 raindrop_canvas.place(x=0, y=0)
 
-
-
 # Draw white raindrop circles on the canvas
 for i in range(50):
     x = random.randint(0, window_width)
@@ -37,7 +37,6 @@ for i in range(50):
 font = ("Helvetica", 14)
 label_color = "#5D3FD3"
 button_color = "#800080"
-
 
 # Define a function to get the user's location and resume
 def get_location_and_resume():
@@ -75,20 +74,35 @@ def get_location_and_resume():
 
         if matched_jobs:
             # Generate the search URL for Indeed.com
-            search_url = "https://www.indeed.ca/jobs?q=" + urllib.parse.quote_plus(
-                " OR ".join(matched_jobs)) + "&l=" + urllib.parse.quote_plus(location)
+            search_url = "https://www.bcjobs.ca/search-jobs?q=" + urllib.parse.quote_plus(
+                " ".join(matched_jobs)) + "&location=" + urllib.parse.quote_plus(location)
+##            job_list = scrape.get_job_description()
+##            for job in job_list:
+##                title = job['title']
+##                company = job['company']
+##                link = job['link']
+##                job_details = f"Title: {title}\nCompany: {company}\nLink: {link}\n\n"
+##                text.insert('end', job_details)
 
             # Display the matching jobs and the search URL as a clickable link
-            result_label.config(text="Matching jobs:\n" + "\n".join(matched_jobs) + "\n\nSearch on Indeed.com:")
+            result_label.config(text="Matching jobs for {}".format(", ".join(matched_jobs)) + ":\n")
+            job_list = whyyoudothisjayden.get_job_description(search_url)
+            job_details = ""
+            for job in job_list:
+                title = job['title']
+                company = job['company']
+                link = job['link']
+                job_details += f"Title: {title}\nCompany: {company}\nLink: {link}\n\n"
+            result_label.config(text=result_label.cget("text") + "\n" + job_details)
 
             # Destroy any previous link widget
             for widget in window.winfo_children():
                 if isinstance(widget, tk.Label) and widget.cget("fg") == "blue":
                     widget.destroy()
 
-            link = tk.Label(window, text=search_url, fg="blue", cursor="hand2")
-            link.pack()
-            link.bind("<Button-1>", lambda event: webbrowser.open(search_url))
+            #link = tk.Label(window, text=search_url, fg="blue", cursor="hand2")
+            #link.pack()
+            #link.bind("<Button-1>", lambda event: webbrowser.open(search_url))
         else:
 
             result_label.config(text="No matching jobs found.")

@@ -7,9 +7,8 @@ import webbrowser
 from tkinter import *
 from PIL import Image, ImageTk
 import random
-import whyyoudothisjayden
-import FederalScrape
-import ParseFunction
+import scrape_bcjobs
+import scrape_jobbank
 
 # Create the main window
 window = tk.Tk()
@@ -81,7 +80,7 @@ def get_location_and_resume():
             search_url = "https://www.bcjobs.ca/search-jobs?q=" + urllib.parse.quote_plus(
                 " ".join(matched_jobs)) + "&location=" + urllib.parse.quote_plus(location)
             result_label.config(text="Matching jobs for {}".format(", ".join(matched_jobs)) + ":\n")
-            job_list = whyyoudothisjayden.get_job_description(search_url)
+            job_list = scrape_bcjobs.get_job_description(search_url)
             job_details = ""
             for i, job in enumerate(job_list):
                 if i >= 3:
@@ -97,7 +96,7 @@ def get_location_and_resume():
                 " ".join([job.lower() for job in matched_jobs])) + "&location=" + urllib.parse.quote_plus(location) + "&sort=M"
             result_label2.config(text="Matching jobs for {}".format(", ".join(matched_jobs)) + ":\n")
             #print(search_url2)
-            job_list2 = FederalScrape.get_jobDescription(search_url2)
+            job_list2 = scrape_jobbank.get_jobDescription(search_url2)
             job_details2 = ""
             for j, job2 in enumerate(job_list2):
                 if j >= 3:

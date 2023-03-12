@@ -1,0 +1,41 @@
+{
+    "name": "John Doe",
+    "email": "johndoe@example.com",
+    "phone": "555-555-5555",
+    "summary": "A highly motivated software developer with 5 years of experience in developing web applications using Python and Django.",
+    "skills": ["Python", "Django", "JavaScript", "React", "SQL"],
+    "experience": [
+        {
+            "title": "Software Developer",
+            "company": "ABC Company",
+            "location": "New York, NY",
+            "start_date": "2018-01-01",
+            "end_date": "2021-12-31",
+            "responsibilities": [
+                "Developed and maintained web applications using Python and Django",
+                "Worked on various projects using React and JavaScript",
+                "Created and maintained SQL databases"
+            ]
+        },
+        {
+            "title": "Software Developer",
+            "company": "XYZ Company",
+            "location": "Los Angeles, CA",
+            "start_date": "2015-01-01",
+            "end_date": "2017-12-31",
+            "responsibilities": [
+                "Designed and developed web applications using Python and Django",
+                "Collaborated with cross-functional teams to deliver high-quality software",
+                "Wrote unit and integration tests for all code"
+            ]
+        }
+    ],
+    "education": [
+        {
+            "degree": "Bachelor of Science in Computer Science",
+            "school": "University of California, Los Angeles",
+            "location": "Los Angeles, CA",
+            "graduation_date": "2015-05-01"
+        }
+    ]
+}

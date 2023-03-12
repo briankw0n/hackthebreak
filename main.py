@@ -94,7 +94,7 @@ def get_location_and_resume():
                     break
                 title = job['title']
                 company = job['company']
-                link = job['link']
+                link = "https://www.bcjobs.ca" + job['link']
                 job_details += f"Title: {title}\nCompany: {company}\nLink: {link}\n\n"
             result_label.config(text=result_label.cget("text") + "\n" + job_details)
             job_details2 = ""
@@ -164,7 +164,7 @@ submit_button.place(x=820, y=271, anchor="center")
 
 # Create a label for the result
 result_label = tk.Label(window, text="", font=font, fg=label_color, bg="#90A8EE")
-result_label.pack(pady=10)
+result_label.pack(pady=60)
 
 # Create a label for messages
 message_label = tk.Label(window, font=font, fg="red", bg="#90A8EE")

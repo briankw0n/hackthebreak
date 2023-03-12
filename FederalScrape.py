@@ -2,30 +2,24 @@ import requests
 from bs4 import BeautifulSoup
 
 def get_jobDescription(url):
-
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
 
-    job_listings = soup.find_all('article')
+    job_listings = soup.find_all('article') 
 
-    list = []
+    jobs = []
 
     for job in job_listings:
-        distance = job.find('span', class_="distance").text.strip()
-        company = job.find('li', class_="business").text.strip()
-        postdate = job.find('li', class_="date").text.strip()
-        temp = job.find('li', class_="location").text.strip().replace("\n", "")
-        temp = temp.replace("\t", "")
-        temp = temp.replace("Location", "")
-        temp = temp.replace(" ", "")
-        location = temp
-        postURL = job.a['href']
-        list.append({
-            'distance': distance,
+        title = job.find('span', class_='noctitle').text.strip()
+        company = job.find('li', class_='business').text.strip()
+        link = job.find('a')['href']
+
+        link = link.split(';')[0]
+        
+        jobs.append({
+            'title': title,
             'company': company,
-            'postdate': postdate,
-            'location': location,
-            'postURL': postURL
+            'link': link
         })
 
-    return list
+    return jobs

@@ -1,7 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-from tkinter import *
-import webbrowser
 
 def get_job_description(url):
   response = requests.get(url)

@@ -19,7 +19,7 @@ window.configure(bg="#90A8EE")
 
 # Load the image
 img = Image.open("image/two.png")
-img = img.resize((100, 100), Image.ANTIALIAS)  # resize the image if needed
+img = img.resize((100, 100), Image.ANTIALIAS)  # resize the image if neededz
 img_tk = ImageTk.PhotoImage(img)
 
 # Add the image to the canvas widget

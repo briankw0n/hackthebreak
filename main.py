@@ -157,6 +157,7 @@ resume_button = tk.Button(window, text="Browse", font=font, bg=button_color, fg=
 resume_button.pack()
 resume_button.place(relx=0.45, rely=0.331, anchor="center")
 
+
 # Create a button to submit the user's location and resume
 submit_button = tk.Button(window, text="Submit", font=font, bg=button_color, fg="white", command=get_location_and_resume)
 submit_button.pack()

@@ -35,9 +35,12 @@ for i in range(50):
     raindrop_canvas.create_oval(x - radius, y - radius, x + radius, y + radius, fill="white", outline="white")
 
 # Configure the font and colors
-font = ("Helvetica", 14)
+font = ("Helvetica", 12)
 label_color = "#5D3FD3"
 button_color = "#800080"
+
+def open_link(url):
+    webbrowser.open_new_tab(url)
 
 # Define a function to get the user's location and resume
 def get_location_and_resume():
@@ -77,15 +80,6 @@ def get_location_and_resume():
             # Generate the search URL for Indeed.com
             search_url = "https://www.bcjobs.ca/search-jobs?q=" + urllib.parse.quote_plus(
                 " ".join(matched_jobs)) + "&location=" + urllib.parse.quote_plus(location)
-##            job_list = scrape.get_job_description()
-##            for job in job_list:
-##                title = job['title']
-##                company = job['company']
-##                link = job['link']
-##                job_details = f"Title: {title}\nCompany: {company}\nLink: {link}\n\n"
-##                text.insert('end', job_details)
-
-            # Display the matching jobs and the search URL as a clickable link
             result_label.config(text="Matching jobs for {}".format(", ".join(matched_jobs)) + ":\n")
             job_list = whyyoudothisjayden.get_job_description(search_url)
             job_details = ""
@@ -95,19 +89,24 @@ def get_location_and_resume():
                 title = job['title']
                 company = job['company']
                 link = "https://www.bcjobs.ca" + job['link']
-                webbrowser.open_new_tab(link)
+                #webbrowser.open_new_tab(link)
                 job_details += f"Title: {title}\nCompany: {company}\nLink: {link}\n\n"
             result_label.config(text=result_label.cget("text") + "\n" + job_details)
+
+            search_url2 = "https://www.jobbank.gc.ca/jobsearch/jobsearch?searchstring=" + urllib.parse.quote_plus(
+                " ".join(matched_jobs)) + "&location=" + urllib.parse.quote_plus(location)
+            result_label2.config(text="Matching jobs for {}".format(", ".join(matched_jobs)) + ":\n")
+            job_list2 = FederalScrape.get_jobDescription(search_url2)
             job_details2 = ""
-            job_list2 = FederalScrape.get_jobDescription(search_url)
-            for job in job_list2:
-                distance = job['distance']
-                company = job['company']
-                postdate = job['postdate']
-                location = job['location']
-                postURL = job['postURL']
-                job_details2 += f"Distance: {distance}\nCompany: {company}\nPost Date: {postdate}\nLocation: {location}\nLink: {postURL}\n"
-            result_label.config(text=result_label.cget("text") + "\n" + job_details2)
+            for j, job2 in enumerate(job_list2):
+                if j >= 3:
+                    break
+                title2 = job2['title']
+                company2 = job2['company']
+                link2 = "https://www.jobbank.gc.ca" + job2['link']
+                #webbrowser.open_new_tab(link2)
+                job_details2 += f"Title: {title2}\nCompany: {company2}\nLink: {link2}\n\n"
+            result_label2.config(text=result_label2.cget("text") + "\n" + job_details2)
 
             # Destroy any previous link widget
             for widget in window.winfo_children():
@@ -164,7 +163,10 @@ submit_button.place(relx=0.55, rely=0.331, anchor="center")
 
 # Create a label for the result
 result_label = tk.Label(window, text="", font=font, fg=label_color, bg="#90A8EE")
-result_label.pack(pady=60)
+result_label.pack(side="left", pady=10)
+
+result_label2 = tk.Label(window, text="", font=font, fg=label_color, bg="#90A8EE")
+result_label2.pack(side="right", pady=10)
 
 # Create a label for messages
 message_label = tk.Label(window, font=font, fg="red", bg="#90A8EE")

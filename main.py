@@ -6,6 +6,7 @@ import urllib.parse
 import webbrowser
 from tkinter import *
 from PIL import Image, ImageTk
+import random
 
 # Create the main window
 window = tk.Tk()
@@ -25,6 +26,22 @@ img_tk = ImageTk.PhotoImage(img)
 canvas = tk.Canvas(window, width=100, height=100, bg="#90A8EE", highlightthickness=0)
 canvas.create_image(0, window_height-150, anchor=tk.SW, image=img_tk)
 canvas.pack()
+
+# Add the raindrop canvas to the window
+raindrop_canvas = tk.Canvas(window, width=window_width, height=window_height, highlightthickness=0, bg="#90A8EE", bd=0, highlightbackground='black')
+raindrop_canvas.pack(fill='both', expand=True)
+raindrop_canvas.configure(highlightthickness=0)
+raindrop_canvas.configure(bg="#90A8EE")
+raindrop_canvas.place(x=0, y=0)
+
+
+
+# Draw white raindrop circles on the canvas
+for i in range(50):
+    x = random.randint(0, window_width)
+    y = random.randint(0, window_height)
+    radius = random.randint(5, 10)
+    raindrop_canvas.create_oval(x - radius, y - radius, x + radius, y + radius, fill="white", outline="white")
 
 
 label = Label(canvas, image=img_tk, bg="#90A8EE")

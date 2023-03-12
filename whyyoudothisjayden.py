@@ -1,8 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-def get_job_description():
-  url = 'https://www.bcjobs.ca/search-jobs?q=software+developer&location='
+def get_job_description(url):
   response = requests.get(url)
   soup = BeautifulSoup(response.content, 'html.parser')
 

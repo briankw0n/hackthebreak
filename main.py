@@ -89,10 +89,12 @@ def get_location_and_resume():
             result_label.config(text="Matching jobs for {}".format(", ".join(matched_jobs)) + ":\n")
             job_list = whyyoudothisjayden.get_job_description(search_url)
             job_details = ""
-            for job in job_list:
+            for i, job in enumerate(job_list):
+                if i >= 3:
+                    break
                 title = job['title']
                 company = job['company']
-                link = "https://www.bcjobs.ca" + job['link']
+                link = job['link']
                 job_details += f"Title: {title}\nCompany: {company}\nLink: {link}\n\n"
             result_label.config(text=result_label.cget("text") + "\n" + job_details)
             job_details2 = ""

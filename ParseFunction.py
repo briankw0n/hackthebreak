@@ -3,10 +3,13 @@ from bs4 import BeautifulSoup
 import re
 import json
 
-def parseSite(url):
-    # Read the categories from a JSON file
+
+def parse_site(url):
+    # Read the categories and skills from a JSON file
     with open('categories.json', 'r') as f:
         categories = json.load(f)
+    with open('skills.json') as f:
+        skills = json.load(f)
 
     # Define the headers
     headers = {
@@ -27,6 +30,7 @@ def parseSite(url):
     text = soup.get_text()
 
     # Tokenize the text and count the occurrence of each word in the specified categories
+    matched_skills = []
     word_count = {}
     words = re.findall('\w+', text.lower())
     for word in words:
@@ -37,10 +41,20 @@ def parseSite(url):
                 if word not in word_count[category]:
                     word_count[category][word] = 0
                 word_count[category][word] += 1
+        if word in skills:
+            if word not in matched_skills:
+                matched_skills.append(word)
 
-    # Sort the dictionary by the value of the occurrences in descending order for each category
-    for category, word_dict in word_count.items():
-        sorted_word_count = sorted(word_dict.items(), key=lambda x: x[1], reverse=True)
-        print(f'\n{category}:')
-        for i in range(min(3, len(sorted_word_count))):
-            print(f'{sorted_word_count[i][0]}: {sorted_word_count[i][1]}')
+    # print(f'{word_count}')
+    # # Sort the dictionary by the value of the occurrences in descending order for each category
+    # for category, word_dict in word_count.items():
+    #     sorted_word_count = sorted(word_dict.items(), key=lambda x: x[1], reverse=True)
+    #     print(f'\n{category}:')
+    #     for i in range(min(3, len(sorted_word_count))):
+    #         print(f'{sorted_word_count[i][0]}: {sorted_word_count[i][1]}')
+    #
+    # print(f'\nSkills:')
+    # for skill in matched_skills:
+    #     print(f'{skill}')
+
+    return word_count, matched_skills

@@ -95,6 +95,7 @@ def get_location_and_resume():
                 title = job['title']
                 company = job['company']
                 link = "https://www.bcjobs.ca" + job['link']
+                webbrowser.open_new_tab(link)
                 job_details += f"Title: {title}\nCompany: {company}\nLink: {link}\n\n"
             result_label.config(text=result_label.cget("text") + "\n" + job_details)
             job_details2 = ""
@@ -131,7 +132,6 @@ def get_location_and_resume():
 
         # Show a message
         message_label.config(text="Information submitted successfully", fg="green")
-
 
 # Create a label for the title text
 title_label = tk.Label(window, text="Hack the Job", font=("Helvetica", 35), fg="#5D3FD3", bg="#90A8EE", pady=10)

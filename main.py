@@ -132,6 +132,7 @@ def get_location_and_resume():
 
         # Show a message
         message_label.config(text="Information submitted successfully", fg="green")
+        message_label.place(relx=0.5, rely=0.25, anchor="center")
 
 # Create a label for the title text
 title_label = tk.Label(window, text="Hack the Job", font=("Helvetica", 35), fg="#5D3FD3", bg="#90A8EE", pady=10)

@@ -4,6 +4,8 @@ import tkinter as tk
 from tkinter import filedialog
 import urllib.parse
 import webbrowser
+from tkinter import *
+from PIL import Image, ImageTk
 
 # Create the main window
 window = tk.Tk()
@@ -12,12 +14,27 @@ window_width = window.winfo_screenwidth()
 window_height = window.winfo_screenheight()
 window.geometry("%dx%d+0+0" % (window_width, window_height))
 
-window.configure(bg="black")
+window.configure(bg="#90A8EE")
+
+# Load the image
+img = Image.open("./image/two.png")
+img = img.resize((100, 100), Image.ANTIALIAS)  # resize the image if needed
+img_tk = ImageTk.PhotoImage(img)
+
+# Add the image to the canvas widget
+canvas = tk.Canvas(window, width=100, height=100, bg="#90A8EE", highlightthickness=0)
+canvas.create_image(0, window_height-150, anchor=tk.SW, image=img_tk)
+canvas.pack()
+
+
+label = Label(canvas, image=img_tk, bg="#90A8EE")
+label.place(x=0, y=10)  # position the label at (0, 0) on the canvas
 
 # Configure the font and colors
 font = ("Helvetica", 14)
-label_color = "white"
+label_color = "#5D3FD3"
 button_color = "#800080"
+
 
 # Define a function to get the user's location and resume
 def get_location_and_resume():
@@ -55,7 +72,7 @@ def get_location_and_resume():
 
         if matched_jobs:
             # Generate the search URL for Indeed.com
-            search_url = "https://www.indeed.com/jobs?q=" + urllib.parse.quote_plus(
+            search_url = "https://www.indeed.ca/jobs?q=" + urllib.parse.quote_plus(
                 " OR ".join(matched_jobs)) + "&l=" + urllib.parse.quote_plus(location)
 
             # Display the matching jobs and the search URL as a clickable link
@@ -86,24 +103,24 @@ def get_location_and_resume():
 
 
 # Create a label for the title text
-title_label = tk.Label(window, text="Hack the Job", font=("Helvetica", 24), fg="white", bg="black", pady=10)
+title_label = tk.Label(window, text="Hack the Job", font=("Helvetica", 24), fg="#5D3FD3", bg="#90A8EE", pady=10)
 title_label.pack()
 
 # Create a label and entry field for the user's location
-location_label = tk.Label(window, text="Enter your location:", font=font, fg=label_color, bg="black")
+location_label = tk.Label(window, text="Enter your location:", font=font, fg=label_color, bg="#90A8EE")
 location_label.pack(pady=10)
 location_entry = tk.Entry(window, font=font)
 location_entry.pack(padx=10, pady=5)
 
-job_label = tk.Label(window, text="Enter your desired job:", font=font, fg=label_color, bg="black")
+job_label = tk.Label(window, text="Enter your desired job:", font=font, fg=label_color, bg="#90A8EE")
 job_label.pack(pady=10)
 job_entry = tk.Entry(window, font=font)
 job_entry.pack(padx=10, pady=5)
 
 # Create a label and button for the user's resume
-resume_label = tk.Label(window, text="Upload your resume (PDF only):", font=font, fg=label_color, bg="black")
+resume_label = tk.Label(window, text="Upload your resume (PDF only):", font=font, fg=label_color, bg="#90A8EE")
 resume_label.pack(pady=10)
-resume_path_label = tk.Label(window, font=font, fg=label_color, bg="black")
+resume_path_label = tk.Label(window, font=font, fg=label_color, bg="#90A8EE")
 resume_path_label.pack(padx=10, pady=5)
 
 # Create a button to upload the user's resume
@@ -118,11 +135,11 @@ submit_button = tk.Button(window, text="Submit", font=font, bg=button_color, fg=
 submit_button.pack(pady=10)
 
 # Create a label for the result
-result_label = tk.Label(window, text="", font=font, fg=label_color, bg="black")
+result_label = tk.Label(window, text="", font=font, fg=label_color, bg="#90A8EE")
 result_label.pack(pady=10)
 
 # Create a label for messages
-message_label = tk.Label(window, font=font, fg="red", bg="black")
+message_label = tk.Label(window, font=font, fg="red", bg="#90A8EE")
 message_label.pack()
 
 # Run the main event loop

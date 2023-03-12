@@ -89,14 +89,14 @@ def get_location_and_resume():
                 title = job['title']
                 company = job['company']
                 link = "https://www.bcjobs.ca" + job['link']
-                webbrowser.open_new_tab(link)
+                #webbrowser.open_new_tab(link)
                 job_details += f"Title: {title}\nCompany: {company}\nLink: {link}\n\n"
             result_label.config(text=result_label.cget("text") + "\n" + job_details)
 
             search_url2 = "https://www.jobbank.gc.ca/jobsearch/jobsearch?searchstring=" + urllib.parse.quote_plus(
                 " ".join([job.lower() for job in matched_jobs])) + "&location=" + urllib.parse.quote_plus(location) + "&sort=M"
             result_label2.config(text="Matching jobs for {}".format(", ".join(matched_jobs)) + ":\n")
-            print(search_url2)
+            #print(search_url2)
             job_list2 = FederalScrape.get_jobDescription(search_url2)
             job_details2 = ""
             for j, job2 in enumerate(job_list2):
@@ -105,7 +105,7 @@ def get_location_and_resume():
                 title2 = job2['title']
                 company2 = job2['company']
                 link2 = "https://www.jobbank.gc.ca" + job2['link']
-                webbrowser.open_new_tab(link2)
+                #webbrowser.open_new_tab(link2)
                 job_details2 += f"Title: {title2}\nCompany: {company2}\nLink: {link2}\n\n"
             result_label2.config(text=result_label2.cget("text") + "\n" + job_details2)
 
@@ -164,10 +164,10 @@ submit_button.place(relx=0.55, rely=0.331, anchor="center")
 
 # Create a label for the result
 result_label = tk.Label(window, text="", font=font, fg=label_color, bg="#90A8EE")
-result_label.pack(side="left", pady=50)
+result_label.pack(side="left", pady=20)
 
 result_label2 = tk.Label(window, text="", font=font, fg=label_color, bg="#90A8EE")
-result_label2.pack(side="right", pady=50)
+result_label2.pack(side="right", pady=20)
 
 # Create a label for messages
 message_label = tk.Label(window, font=font, fg="red", bg="#90A8EE")

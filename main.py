@@ -16,7 +16,6 @@ window_height = window.winfo_screenheight()
 window.geometry("%dx%d+0+0" % (window_width, window_height))
 
 window.configure(bg="#90A8EE")
-
 # Load the image
 img = Image.open("image/two.png")
 img = img.resize((100, 100), Image.ANTIALIAS)  # resize the image if neededz
@@ -42,10 +41,6 @@ for i in range(50):
     y = random.randint(0, window_height)
     radius = random.randint(5, 10)
     raindrop_canvas.create_oval(x - radius, y - radius, x + radius, y + radius, fill="white", outline="white")
-
-
-label = Label(canvas, image=img_tk, bg="#90A8EE")
-label.place(x=0, y=10)  # position the label at (0, 0) on the canvas
 
 # Configure the font and colors
 font = ("Helvetica", 14)

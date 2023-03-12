@@ -94,8 +94,9 @@ def get_location_and_resume():
             result_label.config(text=result_label.cget("text") + "\n" + job_details)
 
             search_url2 = "https://www.jobbank.gc.ca/jobsearch/jobsearch?searchstring=" + urllib.parse.quote_plus(
-                " ".join(matched_jobs)) + "&location=" + urllib.parse.quote_plus(location)
+                " ".join([job.lower() for job in matched_jobs])) + "&location=" + urllib.parse.quote_plus(location) + "&sort=M"
             result_label2.config(text="Matching jobs for {}".format(", ".join(matched_jobs)) + ":\n")
+            print(search_url2)
             job_list2 = FederalScrape.get_jobDescription(search_url2)
             job_details2 = ""
             for j, job2 in enumerate(job_list2):

@@ -35,7 +35,7 @@ for i in range(50):
     raindrop_canvas.create_oval(x - radius, y - radius, x + radius, y + radius, fill="white", outline="white")
 
 # Configure the font and colors
-font = ("Helvetica", 14)
+font = ("Helvetica", 20)
 label_color = "#5D3FD3"
 button_color = "#800080"
 

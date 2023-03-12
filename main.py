@@ -90,10 +90,10 @@ def get_location_and_resume():
             job_list = whyyoudothisjayden.get_job_description(search_url)
             job_details = ""
             for job in job_list:
-                  title = job['title']
-                  company = job['company']
-                  link = job['link']
-                  job_details += f"Title: {title}\nCompany: {company}\nLink: {link}\n\n"
+                title = job['title']
+                company = job['company']
+                link = "https://www.bcjobs.ca" + job['link']
+                job_details += f"Title: {title}\nCompany: {company}\nLink: {link}\n\n"
             result_label.config(text=result_label.cget("text") + "\n" + job_details)
             job_details2 = ""
             job_list2 = FederalScrape.get_jobDescription(search_url)

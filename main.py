@@ -94,7 +94,7 @@ def get_location_and_resume():
                     break
                 title = job['title']
                 company = job['company']
-                link = job['link']
+                link = "https://www.bcjobs.ca" + job['link']
                 job_details += f"Title: {title}\nCompany: {company}\nLink: {link}\n\n"
             result_label.config(text=result_label.cget("text") + "\n" + job_details)
             job_details2 = ""
